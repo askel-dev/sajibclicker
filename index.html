@@ -6,7 +6,7 @@
 	<title>Sajib Clicker</title>
 	<link rel="icon" type="image/x-icon" href="https://i.ibb.co/8DHdBNy/sajib.png">
 </head>
-<body onload="updateVar()">
+<body onload="updateVar(); displayPopUp();">
 	<h1 class="logo">Sajib Clicker?</h1>
 
  <img class="logoImg" src="https://i.ibb.co/0qcMSjh/sajib-clicker.png">
@@ -484,8 +484,7 @@
 
 	gymIsUnlocked = localStorage.getItem("gymIsUnlockedItem") || 0;
 
-	function updateVar() {
-
+	function displayPopUp() {
 		modal.style.display = "block";
 
 		span.onclick = function() {
@@ -497,6 +496,9 @@
 		    modal.style.display = "none";
 		  }
 		}
+	}
+
+	function updateVar() {
 		
 		gainsText.innerHTML = " " + Math.round(gains);
 		gainsPerClickTxt.innerHTML = " " + Math.round(gainsPerClick * 10) / 10;
