@@ -19,16 +19,11 @@
 		</div>
 	</div>
 
-  	<audio src="sajib.mp3" autoplay>
-  <p>If you are reading this, it is because your browser does not support the audio element.     </p>
-  <embed src="/music/good_enough.mp3" width="180" height="90" hidden="true" />
-  </audio>
-
 	<div class="grid2">
 		<div class="box1">
 		  
 			<h1 class="title">Upgrades:</h1>
-			<button onclick="up1()" id="up1Btn" class="up1"><span class="" id="numOfUP1"></span><b>Heavier Bench Press</b> <br/> Cost: <span id="up1Span">10</span></button>
+			<button onclick="up1()" id="up1Btn" class="up1"><span class="" id="numOfUP1"></span><b>Heavier Weights</b> <br/> Cost: <span id="up1Span">10</span></button>
 			
 			<button onclick="up2()" id="up2Btn" class="up2"><span class="" id="numOfUP2"></span><b>More Protein</b> <br/> Cost: <span id="up2Span">15</span></button>
 
@@ -59,6 +54,25 @@
 		</div>
 	</div>
 
+	<div id="myModal" class="modal">
+
+  <div style="text-align: center;" class="modal-content">
+    <span class="close">&times;</span>
+    <h1 style="color:white;">🎉 Update 1.1! 🎉</h1>
+    <ul style="  list-style-position: inside;
+  text-align: center; color: white; font-size: 1vw;">
+  <div class="centerList">
+    	<li class="updateList">The Jungle Gym is here! Unlock it for 50.000 GAINS!</li>
+    	<li class="updateList">Complete UI Overhaul (better interface)</li>
+    	<li class="updateList">Sajib now bench presses with your click</li>
+    	<li class="updateList">New "Send Feedback" button.</li>
+    	<li class="updateList">Bad sound effects :(</li>
+  </div>
+    </ul>
+  </div>
+
+</div>
+
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
 
@@ -70,6 +84,18 @@
 	    background-color: #252a30;
 	    overflow: hidden;
 	    zoom: 90%;
+	}
+
+	.updateList {
+		padding: 5px;
+		text-align: left;
+
+	}
+
+	.centerList {
+		text-align: center;
+		  display: table;
+  	margin: 0 auto;
 	}
 
 	.logo {
@@ -326,6 +352,45 @@
 	}
 
 
+	.modal {
+	  display: none; /* Hidden by default */
+	  position: fixed; /* Stay in place */
+	  z-index: 1; /* Sit on top */
+	  padding-top: 20vw; /* Location of the box */
+	  left: 0;
+	  top: 0;
+	  width: 100%; /* Full width */
+	  height: 100%; /* Full height */
+	  overflow: auto; /* Enable scroll if needed */
+	  background-color: rgb(0,0,0); /* Fallback color */
+	  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	}
+
+	/* Modal Content */
+	.modal-content {
+	  background-color: #23282e;
+	  margin: auto;
+	  padding: 20px;
+	  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+	  width: 50%;
+	}
+
+	/* The Close Button */
+	.close {
+	  color: #aaaaaa;
+	  float: right;
+	  font-size: 28px;
+	  font-weight: bold;
+	}
+
+	.close:hover,
+	.close:focus {
+	  color: #000;
+	  text-decoration: none;
+	  cursor: pointer;
+	}
+
+
 </style>
 
 <script type="text/javascript">
@@ -373,6 +438,15 @@
 	let numOfUp5 = document.getElementById("numOfUP5");
 	let numOfUp6 = document.getElementById("numOfUP6");
 
+	var modal = document.getElementById("myModal");
+
+	// Get the button that opens the modal
+	var btn = document.getElementById("myBtn");
+
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
+
+
 	// Sound effects
 	var deny = new Audio("http://codeskulptor-demos.commondatastorage.googleapis.com/pang/pop.mp3");
 
@@ -412,6 +486,17 @@
 
 	function updateVar() {
 
+		modal.style.display = "block";
+
+		span.onclick = function() {
+	  	modal.style.display = "none";
+		}	
+
+		window.onclick = function(event) {
+		  if (event.target == modal) {
+		    modal.style.display = "none";
+		  }
+		}
 		
 		gainsText.innerHTML = " " + Math.round(gains);
 		gainsPerClickTxt.innerHTML = " " + Math.round(gainsPerClick * 10) / 10;
@@ -546,7 +631,7 @@ document.onkeydown = function(e) {
 	}
 
 	function click1() {
-		//deny.play();
+		deny.play();
 		gains += gainsPerClick;
 		gainsText.innerHTML = " " + Math.round(gains);
 		gainsPerClickTxt.innerHTML = " " + Math.round(gainsPerClick * 10) / 10;
