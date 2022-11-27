@@ -9,7 +9,7 @@
 <body onload="updateVar(); displayPopUp();">
 	<h1 class="logo">Sajib Clicker?</h1>
 
- <img class="logoImg" src="https://i.ibb.co/0qcMSjh/sajib-clicker.png">
+ <!--<img class="logoImg" src="https://i.ibb.co/0qcMSjh/sajib-clicker.png">-->
 
 	<div class="grid1">
 		<button onclick="clearLocal()" class="clearBtn">Clear Localstorage</button>
@@ -57,16 +57,16 @@
 	<div id="myModal" class="modal">
 
   <div style="text-align: center;" class="modal-content">
-    <span class="close">&times;</span>
-    <h1 style="color:white;">🎉 Update 1.1! 🎉</h1>
-    <ul style="  list-style-position: inside;
-  text-align: center; color: white; font-size: 1vw;">
+    <span style="font-size: 5vw; line-height: 1vw" class="close">&times;</span>
+    <h1 style="color:white;">🎉 Update 1.1 🎉</h1>
+    <ul style="  list-style-position: inside; text-align: center; color: white; font-size: 1vw;">
   <div class="centerList">
     	<li class="updateList">The Jungle Gym is here! Unlock it for 50.000 GAINS!</li>
     	<li class="updateList">Complete UI Overhaul (better interface)</li>
-    	<li class="updateList">Sajib now bench presses with your click</li>
+    	<li class="updateList">Sajib now bench presses when you click on him</li>
     	<li class="updateList">New "Send Feedback" button.</li>
-    	<li class="updateList">Bad sound effects :(</li>
+    	<li class="updateList">Boring sound effects</li>
+    	<h2>Vote for next update <a target="_blank" href="https://strawpoll.com/polls/XOgOJR6aan3">here.</a></h2>
   </div>
     </ul>
   </div>
@@ -364,7 +364,20 @@
 	  overflow: auto; /* Enable scroll if needed */
 	  background-color: rgb(0,0,0); /* Fallback color */
 	  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	   animation-name: fadeInOpacity;
+     animation-iteration-count: 1;
+     animation-timing-function: ease-in;
+     animation-duration: 0.5s;
 	}
+
+ @keyframes fadeInOpacity {
+     0% {
+         opacity: 0;
+    }
+     100% {
+         opacity: 1;
+    }
+}
 
 	/* Modal Content */
 	.modal-content {
