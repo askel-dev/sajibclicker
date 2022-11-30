@@ -19,11 +19,12 @@
 		  <img id="sajibImg" src="">
 		</div>
     <div style="text-align: center;">
-    <button onclick="AchUI()" class="AchBtn">Achievements</button>
+	    <button onclick="AchUI()" class="AchBtn">Achievements</button>
+			<button onclick="sendMail()" class="feedbackBtn">Send Feedback</button>
     </div>
 	</div>
 
-	<div class="grid2">
+	<div id="grid2" class="grid2">
 		<div class="box1">
 		  
 			<h1 class="title">Upgrades:</h1>
@@ -43,9 +44,15 @@
 			<button onclick="up6()" id="up6Btn" class="up3"><span class="" id="numOfUP6"></span><b>Upgrade 3</b><br/> Cost: <span id="up6Span">20</span></button>
 
 		</div>
+			<div class="box3">
+				<h1 style="filter: brightness(0.5);" class="title">Idle Upgrades:</h1>
+				<button style="filter: brightness(0.4);" onclick="up7()" id="up7Btn" class="up1"><span class="" id="numOfUP7"></span><b>Upgrade 1</b> <br/> Cost: <span id="up7Span">10</span></button>
+				
+				<button style="filter: brightness(0.4);" onclick="up8()" id="up8Btn" class="up2"><span class="" id="numOfUP8"></span><b>Upgrade 2</b> <br/> Cost: <span id="up8Span">15</span></button>
 
-		<div style="text-align: center;">
-			<button onclick="sendMail()" class="feedbackBtn">Send Feedback</button>
+				<button style="filter: brightness(0.4);" onclick="up9()" id="up9Btn" class="up3"><span class="" id="numOfUP9"></span><b>Upgrade 3</b><br/> Cost: <span id="up9Span">20</span></button>
+
+			</div>
 		</div>
 
 	</div>
@@ -66,7 +73,8 @@
     <ul style="  list-style-position: inside; text-align: center; color: white; font-size: 1.1vw;">
   <div class="centerList">
     	<li class="updateList">Buffed all Jungle Gym upgrades.</li>
-    	<h1>Vote for next major update <a target="_blank" href="https://strawpoll.com/polls/LVyKxXwK6n0">here.</a></h1>
+    	<br>
+    	<h2>Vote for next major update <a target="_blank" href="https://strawpoll.com/polls/LVyKxXwK6n0">here.</a></h2>
 	<h2>Add you achievment ideas <a target="_blank" href="https://docs.google.com/document/d/10U6h1xZExLUFPEdCqneUC82Vcx9XnIZtjLa6vFmfFMY/edit?usp=sharing">here!</a></h2>
   </div>
     </ul>
@@ -83,27 +91,9 @@
 	    height: 100%;
 	    margin: 0;
 	    background-color: #252a30;
-	    
+	    overflow: hidden;
 	}
   
-  .AchBtn {
-    			margin-top: 1vw;
-    	padding: 0.5vw;
-    	font-size: 1.2rem;
-      font-weight: bold;
-		  border: 0;
-		  border-radius: 4px;
-		  box-shadow: rgba(255,215,0, 0.2) 0 15px 30px -5px;
-		  color: #252a30;
-		  text-decoration: none;
-		  user-select: none;
-		  -webkit-user-select: none;
-		  filter: brightness(0.9);
-		  white-space: nowrap;
-		  cursor: pointer;
-		  background-image: linear-gradient(144deg,#dba514, #eeb609 50%,#fcc201);
-  }
-
 	.updateList {
 		padding: 5px;
 		text-align: left;
@@ -118,10 +108,10 @@
 
 	.logo {
 		text-align: center;
-		font-size: 4vw;
+		font-size: 2vw;
 		margin-top: -0.5%;
 		margin-bottom: 1vw;
-		opacity: 0	;
+		opacity: 0;
 	}
 
 	.title {
@@ -150,11 +140,12 @@
 	}
 
 	.feedbackBtn {
-			margin-top: 1vw;
+			margin-top: 2vw;
     	padding: 0.5vw;
-    	font-size: 1rem;
+    	font-size: 1.2rem;
+    	font-weight: bold;
 		  border: 0;
-		  border-radius: 8px;
+		  border-radius: 4px;
 		  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
 		  color: #252a30;
 		  text-decoration: none;
@@ -165,7 +156,28 @@
 		  white-space: nowrap;
 		  cursor: pointer;
 		  background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+
 	}
+
+  .AchBtn {
+    	margin-top: 2vw;
+    	padding: 0.5vw;
+    	font-size: 1.2rem;
+      font-weight: bold;
+		  border: 0;
+		  border-radius: 4px;
+		  box-shadow: rgba(255,215,0, 0.2) 0 15px 30px -5px;
+		  color: #252a30;
+		  text-decoration: none;
+		  user-select: none;
+		  -webkit-user-select: none;
+		  filter: brightness(40%);
+		  white-space: nowrap;
+		  cursor: pointer;
+		  background-image: linear-gradient(144deg,#dba514, #eeb609 50%,#fcc201);
+		  margin-right: 1rem;
+  }
+
 
 	.feedbackBtn:hover {
 		transform: scale(1.1); 
@@ -175,6 +187,15 @@
 		animation: press 0.2s 1 linear;
 	}
 
+/*
+		.AchBtn:hover {
+		transform: scale(1.1); 
+	}
+
+	.AchBtn:active {
+		animation: press 0.2s 1 linear;
+	}
+*/
 	.up1, .up2, .up3 {
 	    margin-left: auto;
     	margin-right: auto;
@@ -270,19 +291,6 @@
   height: 30vw;
 	}
 
-	.box1 {
-		width: 35vw;
-		height: 18vw;
-		background-color: #23282e;
-    	margin: 0 auto;
-    	text-align: center;
-    	margin-bottom: 2vw;
-    	border-radius: 7px;
-    	height: 20vw;
-    	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-
-	}
-
 	.clearBtn {
 		position: absolute;
 		top: 10px;
@@ -300,6 +308,18 @@
 		display: none;
 		visibility: hidden;
 	}
+
+		.box1 {
+		width: 35vw;
+		height: 18vw;
+		background-color: #23282e;
+    	margin: 0 auto;
+    	text-align: center;
+    	margin-bottom: 2vw;
+    	border-radius: 7px;
+    	height: 20vw;
+    	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+	}
 	
 	.box2 {
 		width: 35vw;
@@ -309,6 +329,19 @@
     	border-radius: 7px;
     	height: 20vw;
     	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    	margin-bottom: 2vw;
+	}
+
+		.box3 {
+		width: 35vw;
+		background-color: #23282e;
+    	margin: 0 auto;
+    	text-align: center;
+    	border-radius: 7px;
+    	height: 20vw;
+    	margin-bottom: 2vw;
+    	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    	margin-bottom: 2vw;
 	}
 
 
@@ -365,8 +398,16 @@
 
 	.grid2 {
 		width: 40%;
-		height: 100px;
 		float: right;
+		overflow-y: auto;
+		height:90vh;
+		scroll-behavior: smooth;
+		-ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+	}
+
+	.grid2::-webkit-scrollbar {
+		display: none;  /* Safari and Chrome */
 	}
 
 
@@ -479,7 +520,7 @@
 
 
 	// Sound effects
-	var deny = new Audio("https://cdn.discordapp.com/attachments/918580579556020305/1046763722380689468/VID_20221128_132153_online-audio-converter.com.mp3");
+	var deny = new Audio("");
 
 	gymUnlocked = false;
 
@@ -699,6 +740,48 @@ document.onkeydown = function(e) {
     }
 
 	}
+
+	// space is clicked
+	document.body.onkeyup = function(e) {
+  if (e.key == " " ||
+      e.code == "Space" ||      
+      e.keyCode == 32      
+  ) {
+    		deny.play();
+		gains += gainsPerClick;
+		gainsText.innerHTML = " " + Math.round(gains);
+		gainsPerClickTxt.innerHTML = " " + Math.round(gainsPerClick * 10) / 10;
+
+		localStorage.setItem("gainsItem", gains.toString());
+		localStorage.setItem("gainsPerClickItem", gainsPerClick.toString());
+
+		localStorage.setItem("numUp1Item", numUp1.toString());
+		localStorage.setItem("up1CostItem", up1Cost.toString());
+
+		localStorage.setItem("numUp2Item", numUp2.toString());
+		localStorage.setItem("up2CostItem", up2Cost.toString());
+
+		localStorage.setItem("numUp3Item", numUp3.toString());
+		localStorage.setItem("up3CostItem", up3Cost.toString());
+
+		localStorage.setItem("numUp4Item", numUp4.toString());
+		localStorage.setItem("up4CostItem", up4Cost.toString());
+
+		localStorage.setItem("numUp5Item", numUp5.toString());
+		localStorage.setItem("up5CostItem", up5Cost.toString());
+
+		localStorage.setItem("numUp6Item", numUp6.toString());
+		localStorage.setItem("up6CostItem", up6Cost.toString());
+
+    if (sajibImg.src == "https://i.ibb.co/VT8bjT7/sajib1.png") {
+
+        sajibImg.src = "https://i.ibb.co/2nnbz7w/sajib2.png";
+    }
+    else {
+        sajibImg.src = "https://i.ibb.co/VT8bjT7/sajib1.png";
+    }
+  }
+}
 	
 
 	function up1() {
