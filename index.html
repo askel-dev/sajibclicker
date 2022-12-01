@@ -1,31 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Sajib Clicker</title>
 	<link rel="icon" type="image/x-icon" href="https://i.ibb.co/8DHdBNy/sajib.png">
-	
-	  <script>
-    function onSuccess(googleUser) {
-      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-    }
-    function onFailure(error) {
-      console.log(error);
-    }
-    function renderButton() {
-      gapi.signin2.render('my-signin2', {
-        'scope': 'profile email',
-        'width': 240,
-        'height': 50,
-        'longtitle': true,
-        'theme': 'dark',
-        'onsuccess': onSuccess,
-        'onfailure': onFailure
-      });
-    }
-  </script>
+
 </head>
 <body onload="updateVar(); displayPopUp();">
 	<h1 class="logo">Sajib Clicker?</h1>
@@ -35,20 +16,21 @@
 	<div class="grid1">
 		<button onclick="clearLocal()" class="clearBtn">Clear Localstorage</button>
 		<button onclick="cheat()" class="cheatBtn">+99999 Gains</button>
+		<h1 class="playTime" id="playTime"></h1>
     
 		<div id="box" onclick="click1()" class="box">
 		  <img id="sajibImg" src="">
 		</div>
     <div style="text-align: center;">
-	    <button onclick="AchUI()" class="AchBtn">Achievements</button>
-			<button onclick="sendMail()" class="feedbackBtn">Send Feedback</button>
+	    <!--<button onclick="AchUI()" class="AchBtn">Achievements</button>
+			<button onclick="sendMail()" class="feedbackBtn">Send Feedback</button>-->
     </div>
 	</div>
 
 	<div id="grid2" class="grid2">
 		<div class="box1">
 		  
-			<h1 class="title">Upgrades:</h1>
+			<h1 class="title normalGradient">Upgrades:</h1>
 			<button onclick="up1()" id="up1Btn" class="up1"><span class="" id="numOfUP1"></span><b>Heavier Weights</b> <br/> Cost: <span id="up1Span">10</span></button>
 			
 			<button onclick="up2()" id="up2Btn" class="up2"><span class="" id="numOfUP2"></span><b>More Protein</b> <br/> Cost: <span id="up2Span">15</span></button>
@@ -57,21 +39,21 @@
 			
 		</div>
 			<div class="box2">
-			<h1 class="title">Jungle Gym Upgrades:</h1>
-			<button onclick="up4()" id="up4Btn" class="up1"><span class="" id="numOfUP4"></span><b>Upgrade 1</b> <br/> Cost: <span id="up4Span">10</span></button>
+			<h1 class="title jungle">Jungle Gym:</h1>
+			<button onclick="up4()" id="up4Btn" class="up4"><span class="" id="numOfUP4"></span><b>Upgrade 1</b> <br/> Cost: <span id="up4Span">10</span></button>
 			
-			<button onclick="up5()" id="up5Btn" class="up2"><span class="" id="numOfUP5"></span><b>Upgrade 2</b> <br/> Cost: <span id="up5Span">15</span></button>
+			<button onclick="up5()" id="up5Btn" class="up5"><span class="" id="numOfUP5"></span><b>Upgrade 2</b> <br/> Cost: <span id="up5Span">15</span></button>
 
-			<button onclick="up6()" id="up6Btn" class="up3"><span class="" id="numOfUP6"></span><b>Upgrade 3</b><br/> Cost: <span id="up6Span">20</span></button>
+			<button onclick="up6()" id="up6Btn" class="up6"><span class="" id="numOfUP6"></span><b>Upgrade 3</b><br/> Cost: <span id="up6Span">20</span></button>
 
 		</div>
 			<div class="box3">
-				<h1 style="filter: brightness(0.5);" class="title">Idle Upgrades:</h1>
-				<button style="filter: brightness(0.4);" onclick="up7()" id="up7Btn" class="up1"><span class="" id="numOfUP7"></span><b>Upgrade 1</b> <br/> Cost: <span id="up7Span">10</span></button>
+				<h1 class="title idleGradient">Idle Upgrades:</h1>
+				<button onclick="up7()" id="up7Btn" class="up7 tooltip"><span id="numOfUP7"></span><b>Daily Protein</b> <br/> Cost: <span id="up7Span">5000</span><br><span>+1 per sec</span></button>
 				
-				<button style="filter: brightness(0.4);" onclick="up8()" id="up8Btn" class="up2"><span class="" id="numOfUP8"></span><b>Upgrade 2</b> <br/> Cost: <span id="up8Span">15</span></button>
+				<button onclick="up8()" id="up8Btn" class="up8"><span class="" id="numOfUP8"></span><b>Creatine!</b> <br/> Cost: <span id="up8Span">15</span><br><span>x2 per sec</span></button>
 
-				<button style="filter: brightness(0.4);" onclick="up9()" id="up9Btn" class="up3"><span class="" id="numOfUP9"></span><b>Upgrade 3</b><br/> Cost: <span id="up9Span">20</span></button>
+				<div style="display:none;"><button onclick="up9()" id="up9Btn" class="up9 boostBtn"><span class="" id="numOfUP9"></span><b>Unlock Boosts</b><br/> Cost: <span id="up9Span"></span></button></div>
 
 			</div>
 		</div>
@@ -81,8 +63,9 @@
 	<div class="grid3">
 
 		<div class="ball">
-			<h1 class="gains1">Gains:<span class="gains3 fixMargin" id="gains"> 0</span></h1>
-			<h2 class="gains2 center1">Gains per click:<span class="gains3" id="gainsPerClickTxt"> 0</span></h2>
+			<h1 class="gains1"><span class="gains3 fixMargin" id="gains"> 0</span>Gains</h1>
+			<h2 class="gains2 center1"><span class="gains3" id="gainsPerClickTxt">0</span>per click</h2>
+			<h2 class="gains4 center1"><span class="gains4" id="gainsPerSecondTxt">0</span>per second</h2>
 		</div>
 	</div>
 
@@ -90,13 +73,15 @@
 
   <div style="text-align: center;" class="modal-content">
     <span style="font-size: 5vw; line-height: 1vw" class="close">&times;</span>
-    <h1 style="color:white;">Update 1.1.1 (small fixes)</h1>
+    <h1 style="color:white;">🎉 Update 1.2 🎉</h1>
     <ul style="  list-style-position: inside; text-align: center; color: white; font-size: 1.1vw;">
   <div class="centerList">
-    	<li class="updateList">You can now press space to click!</li>
+    	<li class="updateList">Idle upgrades are here! Just scroll down in the upgrades tab.</li>
+	  <li>The site looks a bit better</li>
+	  <li>You can now log in with google.</li>
     	<br>
-    	<h2>Vote for next major update <a target="_blank" href="https://strawpoll.com/polls/LVyKxXwK6n0">here.</a></h2>
-	<h2>Add you achievment ideas <a target="_blank" href="https://docs.google.com/document/d/10U6h1xZExLUFPEdCqneUC82Vcx9XnIZtjLa6vFmfFMY/edit?usp=sharing">here!</a></h2>
+    	<!--<h2>Vote for next major update <a target="_blank" href="https://strawpoll.com/polls/LVyKxXwK6n0">here.</a></h2>
+	<h2>Add you achievment ideas <a target="_blank" href="https://docs.google.com/document/d/10U6h1xZExLUFPEdCqneUC82Vcx9XnIZtjLa6vFmfFMY/edit?usp=sharing">here!</a></h2>-->
   </div>
     </ul>
   </div>
@@ -113,7 +98,6 @@
 	    margin: 0;
 	    background-color: #252a30;
 	    overflow: hidden;
-	    
 	}
   
 	.updateList {
@@ -121,6 +105,8 @@
 		text-align: left;
 
 	}
+
+
 
 	.centerList {
 		text-align: center;
@@ -142,6 +128,30 @@
   -webkit-text-fill-color: transparent;
   padding: 10px;
   font-size: 2.5rem;
+	}
+
+	.playTime {
+	background: -webkit-linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+	}
+
+	.jungle {
+	background: -webkit-linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+	}
+
+		.normalGradient {
+		  background: -webkit-linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+	}
+
+	.idleGradient {
+		background: -webkit-linear-gradient(144deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+		  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 	}
 
 	.upgradeNum {
@@ -202,7 +212,7 @@
 
 
 	.feedbackBtn:hover {
-		transform: scale(1.1); 
+		transform: scale(1.1);
 	}
 
 	.feedbackBtn:active {
@@ -211,14 +221,14 @@
 
 /*
 		.AchBtn:hover {
-		transform: scale(1.1); 
+		transform: scale(1.1);
 	}
 
 	.AchBtn:active {
 		animation: press 0.2s 1 linear;
 	}
 */
-	.up1, .up2, .up3 {
+	.up1, .up2, .up3,	.up4, .up5, .up6 ,	.up7, .up8, .up9  {
 	    margin-left: auto;
     	margin-right: auto;
     	margin-top: 1vw;
@@ -239,20 +249,67 @@
 		  touch-action: manipulation;
 		  white-space: nowrap;
 		  cursor: pointer;
-
 			}
-	
-	
-.up1:hover, .up2:hover, .up3:hover {
-  transform: scale(1.1); 
+
+.up4, .up5, .up6 {
+	background-image: linear-gradient(144deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+	box-shadow: rgba(34,193,195,0.2) 0 15px 30px -5px;
 }
 
-.up1:active, .up2:active, .up3:active {
-	animation: press 0.2s 1 linear;
+.up7, .up8, .up9 {
+	background-image: linear-gradient(144deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+	box-shadow: rgba(238,174,202,0.2) 0 15px 30px -5px;
+}
+
+.boostBtn {
+	width: 20vw;
+	font-size: 1.1vw;
+	background-image: linear-gradient(144deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+	box-shadow: rgba(238,174,202,0.2) 0 15px 30px -5px;
+}
+	
+	
+.up1:hover, .up2:hover, .up3:hover,.up4:hover, .up5:hover, .up6:hover,.up7:hover, .up8:hover, .up9:hover {
+  transform: scale(1.1);
+}
+
+.up1:focus, .up2:focus, .up3:focus,.up4:focus, .up5:focus, .up6:focus,.up7:focus, .up8:focus, .up9:focus {
+  outline: none;
+}
+
+.up1:active, .up2:active, .up3:active,.up4:active, .up5:active, .up6:active,.up7:active, .up8:active, .up9:active {
+	
+	animation: shake 0.4s;
 }
 
 .up1:disabled, .up1[disabled], .up2:disabled, .up2[disabled], .up3:disabled, .up3[disabled] {
 	filter: brightness(50%);
+}
+
+.up4:disabled, .up4[disabled], .up5:disabled, .up5[disabled], .up6:disabled, .up6[disabled] {
+	filter: brightness(50%);
+}
+
+.up7:disabled, .up7[disabled], .up8:disabled, .up8[disabled], .up9:disabled, .up9[disabled] {
+	filter: brightness(50%);
+}
+
+@keyframes shake {
+	0% {
+		transform: rotate(0deg) translateX(0px);
+	}
+	25% {
+		transform: rotate(-5deg) translateX(-5px);
+	}
+	50% {
+		transform: rotate(0deg) translateX(0px);
+	}
+	75% {
+		transform: rotate(5deg) translateX(5px);
+	}
+	100% {
+		transform: rotate(0deg) translateX(0px);
+	}
 }
 
 @keyframes press {
@@ -295,7 +352,7 @@
 		user-select: none;
 		  display: flex;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
 	}
 
 
@@ -340,7 +397,8 @@
     	margin-bottom: 2vw;
     	border-radius: 7px;
     	height: 20vw;
-    	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    	box-shadow: rgba(151, 65, 252, 0.2) 0px 5px 15px;
+    	margin-top: 0.7vw;
 	}
 	
 	.box2 {
@@ -350,8 +408,9 @@
     	text-align: center;
     	border-radius: 7px;
     	height: 20vw;
-    	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    	box-shadow: rgba(34,193,195, 0.2) 0px 5px 15px;
     	margin-bottom: 2vw;
+
 	}
 
 		.box3 {
@@ -362,7 +421,7 @@
     	border-radius: 7px;
     	height: 20vw;
     	margin-bottom: 2vw;
-    	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    	box-shadow: rgba(238,174,202, 0.2) 0px 5px 15px;
     	margin-bottom: 2vw;
 	}
 
@@ -381,7 +440,7 @@
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
-    align-items: center;  
+    align-items: center;
     position: absolute;
   	 height: 100%;
   	 margin-left: auto;
@@ -392,12 +451,21 @@
     white-space: nowrap;
 	}
 
-
-	.gains1, .gains2 {
+	.gains1, .gains2, .gains4 {
 				  background: -webkit-linear-gradient(#1FD6FB, #1C91E2, #5668BC);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  font-size: 2.5vw;
 	}
+
+	.gains2 {
+		font-size: 2vw;
+	}
+
+	.gains4 {
+		font-size: 1vw;
+	}
+
 
 	.logoImg {
 		height: 2vw;
@@ -406,16 +474,6 @@
 		left: 1.3vw;
 		cursor: pointer;
 		filter: brightness(0.8);
-	}
-
-	.gains3 {
-				  background: -webkit-linear-gradient(#1FD6FB, #1C91E2, #5668BC);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-left: 90px;
-  color: white;
-  font-size: 1.5rem;
-
 	}
 
 	.grid2 {
@@ -498,18 +556,26 @@
 	var up5Cost = 10000;
 	var up6Cost = 100000;
 	
+	var up7Cost = 5000;
+	var up8Cost = 10000000;
+	
 	var numUp1 = 0;
 	var numUp2 = 0;
 	var numUp3 = 0;
 	var numUp4 = 0;
 	var numUp5 = 0;
 	var numUp6 = 0;
+	var numUp7 = 0;
+	var numUp8 = 0;
+	
+	var GPS = 0;
 
 	let sajibImg = document.getElementById("sajibImg");
 	sajibImg.src = "https://i.ibb.co/VT8bjT7/sajib1.png";
 
 	let gainsText = document.getElementById("gains");
 	let gainsPerClickTxt = document.getElementById("gainsPerClickTxt");
+	let gainsPerSecondTxt = document.getElementById("gainsPerSecondTxt");
 	let sajib = document.getElementById("box");
 	
 	let up1Span = document.getElementById("up1Span");
@@ -518,6 +584,8 @@
 	let up4Span = document.getElementById("up4Span");
 	let up5Span = document.getElementById("up5Span");
 	let up6Span = document.getElementById("up6Span");
+	let up7SPan = document.getElementById("up7Span");
+	let up8SPan = document.getElementById("up8Span");
 	
 	let up1Btn = document.getElementById("up1Btn");
 	let up2Btn = document.getElementById("up2Btn");
@@ -525,12 +593,16 @@
 	let up4Btn = document.getElementById("up4Btn");
 	let up5Btn = document.getElementById("up5Btn");
 	let up6Btn = document.getElementById("up6Btn");
+	let up7Btn = document.getElementById("up7Btn");
+	let up8Btn = document.getElementById("up8Btn");
 	
 	let numOfUp1 = document.getElementById("numOfUP1");
 	let numOfUp2 = document.getElementById("numOfUP2");
 	let numOfUp4 = document.getElementById("numOfUP4");
 	let numOfUp5 = document.getElementById("numOfUP5");
 	let numOfUp6 = document.getElementById("numOfUP6");
+	let numOfUp7 = document.getElementById("numOfUP7");
+	let numOfUp8 = document.getElementById("numOfUP8");
 
 	var modal = document.getElementById("myModal");
 
@@ -554,9 +626,14 @@
 	up4Btn.disabled = true;
 	up5Btn.disabled = true;
 	up6Btn.disabled = true;
+	
+	up7Btn.disabled = true;
+	up8Btn.disabled = true;
+	up9Btn.disabled = true;
 
 	gains = Number(localStorage.getItem("gainsItem"));
 	gainsPerClick = Number(localStorage.getItem("gainsPerClickItem")) || 1;
+	GPS = Number(localStorage.getItem("gainsPerSecondItem")) || 0;
 
 	numUp1 = Number(localStorage.getItem("numUp1Item")) || 0;
 	up1Cost = Number(localStorage.getItem("up1CostItem")) || 10;
@@ -576,6 +653,12 @@
 	numUp6 = Number(localStorage.getItem("numUp6Item")) || 0;
 	up6Cost = Number(localStorage.getItem("up6CostItem")) || 100000;
 
+	numUp7 = Number(localStorage.getItem("numUp7Item")) || 0;
+	up7Cost = Number(localStorage.getItem("up7CostItem")) || 100000;
+
+	numUp8 = Number(localStorage.getItem("numUp8Item")) || 0;
+	up8Cost = Number(localStorage.getItem("up8CostItem")) || 10000000;
+
 	gymIsUnlocked = localStorage.getItem("gymIsUnlockedItem") || 0;
 
 	function displayPopUp() {
@@ -583,7 +666,7 @@
 
 		span.onclick = function() {
 	  	modal.style.display = "none";
-		}	
+		}
 
 		window.onclick = function(event) {
 		  if (event.target == modal) {
@@ -594,8 +677,9 @@
 
 	function updateVar() {
 		
-		gainsText.innerHTML = " " + Math.round(gains);
-		gainsPerClickTxt.innerHTML = " " + Math.round(gainsPerClick * 10) / 10;
+		gainsText.innerHTML = Math.round(gains);
+		gainsPerClickTxt.innerHTML = Math.round(gainsPerClick * 10) / 10 + " ";
+		gainsPerSecondTxt.innerHTML = GPS + " ";
 
 		up1Span.innerHTML = Math.round(up1Cost);
 		up2Span.innerHTML = Math.round(up2Cost);
@@ -603,6 +687,8 @@
 		up4Span.innerHTML = Math.round(up4Cost);
 		up5Span.innerHTML = Math.round(up5Cost);
 		up6Span.innerHTML = Math.round(up6Cost);
+		up7Span.innerHTML = Math.round(up7Cost);
+		up8Span.innerHTML = Math.round(up8Cost);
 
 
 		localStorage.setItem("gainsItem", gains.toString());
@@ -611,6 +697,9 @@
 		localStorage.setItem("gainsPerClickItem", gainsPerClick.toString());
 		gainsPerClick = Number(localStorage.getItem("gainsPerClickItem"));
 
+		localStorage.setItem("gainsPerSecondItem", GPS.toString());
+		GPS = Number(localStorage.getItem("gainsPerSecondItem"));
+
 		localStorage.setItem("numUp1Item", numUp1.toString());
 		numUp1 = Number(localStorage.getItem("numUp1Item"));
 
@@ -618,34 +707,46 @@
 		up1Cost = Number(localStorage.getItem("up1CostItem"));
 
 		localStorage.setItem("up2CostItem", up2Cost.toString());
-		up2Cost = Number(localStorage.getItem("up2CostItem"));	
+		up2Cost = Number(localStorage.getItem("up2CostItem"));
 
 		localStorage.setItem("numUp2Item", numUp2.toString());
 		numUp2 = Number(localStorage.getItem("numUp2Item"));
 
 		localStorage.setItem("up3CostItem", up3Cost.toString());
-		up3Cost = Number(localStorage.getItem("up3CostItem"));	
+		up3Cost = Number(localStorage.getItem("up3CostItem"));
 
 		localStorage.setItem("numUp3Item", numUp3.toString());
 		numUp3 = Number(localStorage.getItem("numUp3Item"));
 
 		localStorage.setItem("up4CostItem", up4Cost.toString());
-		up4Cost = Number(localStorage.getItem("up4CostItem"));	
+		up4Cost = Number(localStorage.getItem("up4CostItem"));
 
 		localStorage.setItem("numUp4Item", numUp4.toString());
 		numUp4 = Number(localStorage.getItem("numUp4Item"));
 
 		localStorage.setItem("up5CostItem", up5Cost.toString());
-		up5Cost = Number(localStorage.getItem("up5CostItem"));	
+		up5Cost = Number(localStorage.getItem("up5CostItem"));
 
 		localStorage.setItem("numUp5Item", numUp5.toString());
 		numUp5 = Number(localStorage.getItem("numUp5Item"));
 
 		localStorage.setItem("up6CostItem", up6Cost.toString());
-		up6Cost = Number(localStorage.getItem("up6CostItem"));	
+		up6Cost = Number(localStorage.getItem("up6CostItem"));
 
 		localStorage.setItem("numUp6Item", numUp6.toString());
 		numUp6 = Number(localStorage.getItem("numUp6Item"));
+
+		localStorage.setItem("up7CostItem", up7Cost.toString());
+		up7Cost = Number(localStorage.getItem("up7CostItem"));
+
+		localStorage.setItem("numUp7Item", numUp7.toString());
+		numUp7 = Number(localStorage.getItem("numUp7Item"));
+
+		localStorage.setItem("up8CostItem", up8Cost.toString());
+		up8Cost = Number(localStorage.getItem("up8CostItem"));
+
+		localStorage.setItem("numUp8Item", numUp8.toString());
+		numUp8 = Number(localStorage.getItem("numUp8Item"));
 
 		localStorage.setItem("gymIsUnlockedItem", gymIsUnlocked);
 		gymIsUnlocked = localStorage.getItem("gymIsUnlockedItem");
@@ -655,6 +756,8 @@
 		numOfUp4.innerHTML = "(" + numUp4 + ") ";
 		numOfUp5.innerHTML = "(" + numUp5 + ") ";
 		numOfUp6.innerHTML = "(" + numUp6 + ") ";
+		numOfUp7.innerHTML = "(" + numUp7 + ") ";
+		numOfUp8.innerHTML = "(" + numUp8 + ") ";
 		
 		document.addEventListener('contextmenu', event => event.preventDefault());
 		
@@ -693,6 +796,9 @@
 
 		if (gymIsUnlocked == "1") {
 
+			up7Btn.disabled = false;
+			up8Btn.disabled = false;
+
 			if(numUp4 < 200) {
 				up4Btn.disabled = false;
 			}
@@ -727,10 +833,11 @@ document.onkeydown = function(e) {
 	}
 
 	function click1() {
-		deny.play();
+
 		gains += gainsPerClick;
-		gainsText.innerHTML = " " + Math.round(gains);
-		gainsPerClickTxt.innerHTML = " " + Math.round(gainsPerClick * 10) / 10;
+		gainsText.innerHTML = Math.round(gains);
+		gainsPerClickTxt.innerHTML = Math.round(gainsPerClick * 10) / 10 + " ";
+		gainsPerSecondTxt.innerHTML = GPS + " ";
 
 		localStorage.setItem("gainsItem", gains.toString());
 		localStorage.setItem("gainsPerClickItem", gainsPerClick.toString());
@@ -752,6 +859,12 @@ document.onkeydown = function(e) {
 
 		localStorage.setItem("numUp6Item", numUp6.toString());
 		localStorage.setItem("up6CostItem", up6Cost.toString());
+
+		localStorage.setItem("numUp7Item", numUp7.toString());
+		localStorage.setItem("up7CostItem", up7Cost.toString());
+
+		localStorage.setItem("numUp8Item", numUp8.toString());
+		localStorage.setItem("up8CostItem", up8Cost.toString());
 
     if (sajibImg.src == "https://i.ibb.co/VT8bjT7/sajib1.png") {
 
@@ -766,13 +879,14 @@ document.onkeydown = function(e) {
 	// space is clicked
 	document.body.onkeyup = function(e) {
   if (e.key == " " ||
-      e.code == "Space" ||      
-      e.keyCode == 32      
+      e.code == "Space" ||
+      e.keyCode == 32
   ) {
-    		deny.play();
+
 		gains += gainsPerClick;
 		gainsText.innerHTML = " " + Math.round(gains);
-		gainsPerClickTxt.innerHTML = " " + Math.round(gainsPerClick * 10) / 10;
+		gainsPerClickTxt.innerHTML = Math.round(gainsPerClick * 10) / 10 + " ";
+		gainsPerSecondTxt.innerHTML = GPS + " ";
 
 		localStorage.setItem("gainsItem", gains.toString());
 		localStorage.setItem("gainsPerClickItem", gainsPerClick.toString());
@@ -794,6 +908,12 @@ document.onkeydown = function(e) {
 
 		localStorage.setItem("numUp6Item", numUp6.toString());
 		localStorage.setItem("up6CostItem", up6Cost.toString());
+
+		localStorage.setItem("numUp7Item", numUp7.toString());
+		localStorage.setItem("up7CostItem", up7Cost.toString());
+
+		localStorage.setItem("numUp8Item", numUp8.toString());
+		localStorage.setItem("up8CostItem", up8Cost.toString());
 
     if (sajibImg.src == "https://i.ibb.co/VT8bjT7/sajib1.png") {
 
@@ -1026,14 +1146,95 @@ document.onkeydown = function(e) {
 		console.log("localStorage Cleared!");
 		location.reload();
 	}
+	
+	function up7() {
 
-	function cheat() {
-		gains = 999999999999999;
+		if(gains >= up7Cost) {
+	   GPS += 1;
+	   gains -= up7Cost;
+	   up7Cost *= 1.005;
+	   numUp7++;
+	   updateVar();
+	 }
 	}
+
+	function up8() {
+
+		if(gains >= up8Cost) {
+	   GPS *= 2;
+	   gains -= up8Cost;
+	   up8Cost *= 2;
+	   numUp8++;
+	   updateVar();
+	 }
+	}
+	
+		$(function(){
+setInterval(oneSecondFunction, 1000);
+});
+
+function oneSecondFunction() {
+gains += GPS;
+updateVar();
+}
 
 	function sendMail() {
 		window.open("mailto:sajibclicker@gmail.com");
 	}
+	
+	var timer;
+var timerStart;
+var timeSpentOnSite = getTimeSpentOnSite();
+
+function getTimeSpentOnSite(){
+    timeSpentOnSite = parseInt(localStorage.getItem('timeSpentOnSite'));
+    timeSpentOnSite = isNaN(timeSpentOnSite) ? 0 : timeSpentOnSite;
+    return timeSpentOnSite;
+}
+
+function startCounting(){
+		timerStart = Date.now();
+		timer = setInterval(function(){
+    		timeSpentOnSite = getTimeSpentOnSite()+(Date.now()-timerStart);
+    		localStorage.setItem('timeSpentOnSite',timeSpentOnSite);
+    		timerStart = parseInt(Date.now());
+    		// Convert to seconds
+    		console.log(parseInt(timeSpentOnSite/1000/60));
+    		document.getElementById("playTime").innerHTML = "Total Playtime: " + parseInt(timeSpentOnSite/1000/60) + " minutes";
+		},1000);
+}
+startCounting();
+
+/* ---------- Stop the timer when the window/tab is inactive ---------- */
+
+var stopCountingWhenWindowIsInactive = true;
+
+if( stopCountingWhenWindowIsInactive ){
+    
+    if( typeof document.hidden !== "undefined" ){
+        var hidden = "hidden",
+        visibilityChange = "visibilitychange",
+        visibilityState = "visibilityState";
+    }else if ( typeof document.msHidden !== "undefined" ){
+        var hidden = "msHidden",
+        visibilityChange = "msvisibilitychange",
+        visibilityState = "msVisibilityState";
+    }
+    var documentIsHidden = document[hidden];
+
+    document.addEventListener(visibilityChange, function() {
+        if(documentIsHidden != document[hidden]) {
+            if( document[hidden] ){
+                // Window is inactive
+                clearInterval(timer);
+            }else{
+                // Window is active
+                startCounting();
+            }
+            documentIsHidden = document[hidden];
+        }
+    });
+}
  
 </script>
 </body>
