@@ -6,6 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Sajib Clicker</title>
 	<link rel="icon" type="image/x-icon" href="https://i.ibb.co/8DHdBNy/sajib.png">
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<meta name="google-signin-client_id" content="1056395126913-rfpn6g0sn439gck58ch57vnqcimqtlt7.apps.googleusercontent.com">
 
 </head>
 <body onload="updateVar(); displayPopUp();">
@@ -14,6 +16,8 @@
  <!--<img class="logoImg" src="https://i.ibb.co/0qcMSjh/sajib-clicker.png">-->
 
 	<div class="grid1">
+		<div class="g-signin2" data-onsuccess="onSignIn"></div>
+		<a href="#" onclick="signOut();">Sign out</a>
 		<button onclick="clearLocal()" class="clearBtn">Clear Localstorage</button>
 		<button onclick="cheat()" class="cheatBtn">+99999 Gains</button>
 		<h1 class="playTime" id="playTime"></h1>
@@ -1235,6 +1239,22 @@ if( stopCountingWhenWindowIsInactive ){
         }
     });
 }
+	
+function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+}
+
+	
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
  
 </script>
 </body>
